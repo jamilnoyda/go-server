@@ -19,6 +19,8 @@ import (
 	"os"
 	"runtime/debug"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func usage() {
@@ -36,6 +38,7 @@ func main() {
 	// Parse flags.
 	flag.Usage = usage
 	flag.Parse()
+	log.Info("hello")
 
 	// Parse and validate arguments (none).
 	args := flag.Args()
@@ -62,6 +65,7 @@ func version(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "<!DOCTYPE html>\n<pre>\n")
 	fmt.Fprintf(w, "%s\n", html.EscapeString(info.String()))
+
 }
 
 func greet(w http.ResponseWriter, r *http.Request) {
