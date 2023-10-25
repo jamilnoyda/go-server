@@ -14,7 +14,7 @@ var addTests = []addTest{
 	addTest{3, 10, 13},
 }
 
-func TestAdd(t *testing.T) {
+func TestAdd2(t *testing.T) {
 
 	for _, test := range addTests {
 		if output := Add(test.arg1, test.arg2); output != test.expected {
