@@ -20,7 +20,7 @@ import (
 	"runtime/debug"
 	"strings"
 
-	log "github.com/sirupsen/logrus"
+	logrus "github.com/sirupsen/logrus"
 )
 
 func usage() {
@@ -38,7 +38,7 @@ func main() {
 	// Parse flags.
 	flag.Usage = usage
 	flag.Parse()
-	log.Info("hello")
+	logrus.Info("hello")
 
 	// Parse and validate arguments (none).
 	args := flag.Args()
