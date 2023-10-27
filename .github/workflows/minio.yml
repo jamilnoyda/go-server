@@ -6,10 +6,46 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set bash 
-    - uses: actions/checkout@v3    
-    - name: Set Go environment 
+    - name: Set bash working dir
       run: |
+       echo "jamil"
+
+
+    - uses: actions/checkout@v3    
+    - name: call min io api 
+      run: |
+        # usage: ./minio-upload my-bucket my-file.zip
+        cat jamil.txt
+        bucket=jamil-test
+        file=jamil.txt
+
+        host=https://play.min.io:9443
+        s3_key='lGgXttcb2dlUE9kRKR5p'
+        s3_secret='oK2F8cJh8qqjeJgcCEwedrgXa8kDAR17xl3wSQFe'
+
+        resource="/${bucket}/${file}"
+        content_type="application/octet-stream"
+        date=`date -R`
+        _signature="PUT\n\n${content_type}\n${date}\n${resource}"
+        signature=`echo -en ${_signature} | openssl sha1 -hmac ${s3_secret} -binary | base64`
+
+        curl -v -X PUT -T "${file}" \
+                  -H "Host: $host" \
+                  -H "Date: ${date}" \
+                  -H "Content-Type: ${content_type}" \
+                  -H "Authorization: AWS ${s3_key}:${signature}" \
+                  https://$host${resource}
+
         echo "jamil"
 
       shell: bash 
+
+    # - name: Deploy Stage
+    #   uses: fjogeleit/http-request-action@v1
+    #   with:
+    #     url: 'https://ansible.io/api/v2/job_templates/84/launch/'
+    #     method: 'POST'
+        # username: {{ secrets.AWX_USER }}
+        # password: {{ secrets.AWX_PASSWORD }}
+        # customHeaders: '{"Content-Type": "application/json"}'
+        # data: '{"key_1": "value_1", "key_2": "value_2"}'
