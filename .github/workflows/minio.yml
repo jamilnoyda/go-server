@@ -15,7 +15,8 @@ jobs:
     - name: call min io api 
       run: |
         # usage: ./minio-upload my-bucket my-file.zip
-        cat jamil.txt
+        echo "some text here" > file.txt
+
         bucket=jamil-test
         file=jamil.txt
 
