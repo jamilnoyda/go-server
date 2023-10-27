@@ -1,8 +1,4 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
 name: minio
-
 on:
   workflow_dispatch:
 jobs:
@@ -10,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set Go environment 
+    - name: Set bash 
     - uses: actions/checkout@v3    
     - name: Set Go environment 
       run: |
