@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
@@ -44,13 +46,15 @@ func main() {
 
 	// Upload the zip file
 	mydir, err := os.Getwd()
+	fmt.Println(mydir)
 
 	objectName := "file.txt"
-	filePath := "/file.txt"
+	filePathOfFile := "/file.txt"
 	contentType := "application/zip"
+	fullfilePath := filepath.Join(mydir, "min_io_workflow", filePathOfFile)
 
 	// Upload the zip file with FPutObject
-	info, err := minioClient.FPutObject(ctx, bucketName, objectName, filePath, minio.PutObjectOptions{ContentType: contentType})
+	info, err := minioClient.FPutObject(ctx, bucketName, objectName, fullfilePath, minio.PutObjectOptions{ContentType: contentType})
 	if err != nil {
 		log.Fatalln(err)
 	}
