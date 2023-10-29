@@ -20,9 +20,9 @@ jobs:
         bucket=jamil-test
         file=file.txt
 
-        host=https://play.min.io:9443
-        s3_key='lGgXttcb2dlUE9kRKR5p'
-        s3_secret='oK2F8cJh8qqjeJgcCEwedrgXa8kDAR17xl3wSQFe'
+        host=https://play.min.io
+        s3_key='Q3AM3UQ867SPQQA43P2F'
+        s3_secret='tfteSlswRu7BJ86wekitnifILbZam1KYY3TG'
 
         resource="/${bucket}/${file}"
         content_type="application/octet-stream"
