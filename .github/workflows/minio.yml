@@ -18,7 +18,7 @@ jobs:
         echo "some text here" > file.txt
 
         bucket=jamil-test
-        file=jamil.txt
+        file=file.txt
 
         host=https://play.min.io:9443
         s3_key='lGgXttcb2dlUE9kRKR5p'
