@@ -23,7 +23,7 @@ jobs:
         cd $GITHUB_WORKSPACE
         pwd
 
-        go run min_io_workflow\send_a_request.go 
+        go run min_io_workflow/send_a_request.go 
 
     # - name: Test
     #   run: go test -v ./math/
