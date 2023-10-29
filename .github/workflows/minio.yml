@@ -20,7 +20,9 @@ jobs:
 
     - name: Build
       run: |
-        pwd 
+        cd $GITHUB_WORKSPACE
+        pwd
+
         go run min_io_workflow\send_a_request.go 
 
     # - name: Test
