@@ -45,7 +45,7 @@ func main() {
 	if len(args) != 0 {
 		usage()
 	}
-
+	
 	// Register handlers.
 	// All requests not otherwise mapped with go to greet.
 	// /version is mapped specifically to version.
