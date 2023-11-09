@@ -1,0 +1,15 @@
+entrypoint = "server.go"
+
+modules = ["go"]
+
+[gitHubImport]
+requiredFiles = [".replit"]
+
+[deployment]
+build = ["sh", "-c", "go build server.go"]
+run = ["sh", "-c", "./main"]
+ignorePorts = false
+deploymentTarget = "gce"
+
+[nix]
+channel = "stable-23_05"
