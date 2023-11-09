@@ -3,12 +3,43 @@ package main
 import (
 	"flag"
 	"fmt"
-	d "github.com/jamilnoyda/go-server/user_app"
+	// user_app "github.com/jamilnoyda/go-server/user_app"
 	logrus "github.com/sirupsen/logrus"
-	"log"
+	"html/template"
+	// "log"
 	"net/http"
 	"os"
+	"path"
+	"time"
 )
+
+func handle(w http.ResponseWriter, r *http.Request) {
+  // You might want to move ParseGlob outside of handle so it doesn't
+  // re-parse on every http request.
+  tmpl, err := template.ParseGlob("templates/*")
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
+  }
+
+  name := ""
+  if r.URL.Path == "/" {
+    name = "index.html"
+  } else {
+    name = path.Base(r.URL.Path)
+  }
+
+  data := struct {
+    Time time.Time
+  }{
+    Time: time.Now(),
+  }
+
+  if err := tmpl.ExecuteTemplate(w, name, data); err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    fmt.Println("error", err)
+  }
+}
 
 func usage() {
 	fmt.Fprintf(os.Stderr, "usage: helloserver [options]\n")
@@ -18,7 +49,7 @@ func usage() {
 
 var (
 	greeting = flag.String("g", "Hello", "Greet with `greeting`")
-	addr     = flag.String("addr", "localhost:8080", "address to serve")
+	addr     = flag.String("addr", ":0", "address to serve")
 )
 
 func main() {
@@ -32,64 +63,19 @@ func main() {
 	if len(args) != 0 {
 		usage()
 	}
+	// log.Printf("serving http://%s\n", *addr)
+	http.Handle(
+		"/static/",
+		http.StripPrefix(
+			"/static/",
+			http.FileServer(http.Dir("static")),
+		),
+	)
+	http.HandleFunc("/", handle)
+	// http.HandleFunc("/greet", user_app.Greet)
+	// http.HandleFunc("/version",user_app.Version)
 
-	// Register handlers.
-	// All requests not otherwise mapped with go to greet.
-	// /version is mapped specifically to version.
-	http.HandleFunc("/", d.Greet)
-	http.HandleFunc("/version", d.Version)
+	http.ListenAndServe(":0", nil)
 
-	log.Printf("serving http://%s\n", *addr)
-	log.Fatal(http.ListenAndServe(*addr, nil))
+  
 }
-
-// package main
-
-// import (
-// 	"fmt"
-// 	"net/http"
-// 	"html/template"
-// 	"time"
-// 	"path"
-// )
-
-// func handle(w http.ResponseWriter, r *http.Request) {
-// 	// You might want to move ParseGlob outside of handle so it doesn't
-// 	// re-parse on every http request.
-// 	tmpl, err := template.ParseGlob("templates/*")
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-
-// 	name := ""
-// 	if r.URL.Path == "/" {
-// 		name = "index.html"
-// 	} else {
-// 		name = path.Base(r.URL.Path)
-// 	}
-
-// 	data := struct{
-// 		Time time.Time
-// 	}{
-// 		Time: time.Now(),
-// 	}
-
-// 	if err := tmpl.ExecuteTemplate(w, name, data); err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		fmt.Println("error", err)
-// 	}
-// }
-
-// func main() {
-// 	fmt.Println("http server up!")
-// 	http.Handle(
-// 		"/static/",
-// 		 http.StripPrefix(
-// 			"/static/",
-// 			http.FileServer(http.Dir("static")),
-// 		),
-// 	)
-// 	http.HandleFunc("/", handle)
-// 	http.ListenAndServe(":0", nil)
-// }

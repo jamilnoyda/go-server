@@ -6,7 +6,15 @@ import (
 	"net/http"
 	"runtime/debug"
 	"strings"
+	// "html/template"
+	// "path"
+	// "time"
 )
+
+// Register handlers.
+
+// All requests not otherwise mapped with go to greet.
+// /version is mapped specifically to version.
 
 func Version(w http.ResponseWriter, r *http.Request) {
 	info, ok := debug.ReadBuildInfo()
