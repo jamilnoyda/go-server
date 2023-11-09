@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	user_app "github.com/jamilnoyda/go-server/user_app"
+	d "github.com/jamilnoyda/go-server/user_app"
 	logrus "github.com/sirupsen/logrus"
 	"log"
 	"net/http"
@@ -36,8 +36,8 @@ func main() {
 	// Register handlers.
 	// All requests not otherwise mapped with go to greet.
 	// /version is mapped specifically to version.
-	http.HandleFunc("/", user_app.greet)
-	http.HandleFunc("/version", user_app.version)
+	http.HandleFunc("/", d.Greet)
+	http.HandleFunc("/version", d.Version)
 
 	log.Printf("serving http://%s\n", *addr)
 	log.Fatal(http.ListenAndServe(*addr, nil))

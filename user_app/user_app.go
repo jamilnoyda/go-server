@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func version(w http.ResponseWriter, r *http.Request) {
+func Version(w http.ResponseWriter, r *http.Request) {
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
 		http.Error(w, "no build information available", 500)
@@ -20,7 +20,7 @@ func version(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func greet(w http.ResponseWriter, r *http.Request) {
+func Greet(w http.ResponseWriter, r *http.Request) {
 	name := strings.Trim(r.URL.Path, "/")
 	if name == "" {
 		name = "Gopher"
