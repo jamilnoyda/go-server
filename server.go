@@ -3,9 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
+
 	// user_app "github.com/jamilnoyda/go-server/user_app"
-	logrus "github.com/sirupsen/logrus"
 	"html/template"
+
+	logrus "github.com/sirupsen/logrus"
+
 	// "log"
 	"net/http"
 	"os"
@@ -14,31 +17,31 @@ import (
 )
 
 func handle(w http.ResponseWriter, r *http.Request) {
-  // You might want to move ParseGlob outside of handle so it doesn't
-  // re-parse on every http request.
-  tmpl, err := template.ParseGlob("templates/*")
-  if err != nil {
-    http.Error(w, err.Error(), http.StatusInternalServerError)
-    return
-  }
+	// You might want to move ParseGlob outside of handle so it doesn't
+	// re-parse on every http request.
+	tmpl, err := template.ParseGlob("templates/*")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
-  name := ""
-  if r.URL.Path == "/" {
-    name = "index.html"
-  } else {
-    name = path.Base(r.URL.Path)
-  }
+	name := ""
+	if r.URL.Path == "/" {
+		name = "index.html"
+	} else {
+		name = path.Base(r.URL.Path)
+	}
 
-  data := struct {
-    Time time.Time
-  }{
-    Time: time.Now(),
-  }
+	data := struct {
+		Time time.Time
+	}{
+		Time: time.Now(),
+	}
 
-  if err := tmpl.ExecuteTemplate(w, name, data); err != nil {
-    http.Error(w, err.Error(), http.StatusInternalServerError)
-    fmt.Println("error", err)
-  }
+	if err := tmpl.ExecuteTemplate(w, name, data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println("error", err)
+	}
 }
 
 func usage() {
@@ -75,7 +78,6 @@ func main() {
 	// http.HandleFunc("/greet", user_app.Greet)
 	// http.HandleFunc("/version",user_app.Version)
 
-	http.ListenAndServe(":0", nil)
+	http.ListenAndServe(":11", nil)
 
-  
 }
