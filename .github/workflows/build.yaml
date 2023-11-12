@@ -1,0 +1,47 @@
+name: build and flash  
+
+# taking input from end user like Target your hardware(choise all the ) repo path
+
+on:
+  workflow_dispatch:
+    # inputs:
+    #   some_input:
+    #     description: some input
+    #     required: false
+    #     default: 1
+    # outputs:
+    #   some_output:
+    #     description: "The second job output"
+    #     value: ${{ jobs.my_job.outputs.job_output2 }}
+        # description: some output
+  # push:
+  #    branches:
+  #      - main
+
+jobs:
+  
+  generate-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # required for accessing files in repository.
+
+      # https://github.com/marketplace/actions/build-number-generator
+      - name: Generate build number
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{secrets.github_token}}
+
+      - name: Print new build number
+        run: echo "Build number is $BUILD_NUMBER"
+
+  flash-fw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # required for accessing files in repository.
+    - name: flash
+        run: echo "flash"
+
+   
+      
