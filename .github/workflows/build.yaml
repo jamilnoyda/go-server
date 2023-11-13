@@ -10,6 +10,18 @@ on:
         required: yes
         default: "git@github.com:openbmc/openbmc.git"
         type: string
+      Target_your_hardware:
+        description: Target your hardware
+        required: yes
+        default: "rl300-g11"
+        type: choice
+        options: 
+          - rl300-g11
+          - palmetto
+          - zaius
+          - dl360poc
+          - p10bmc
+
 
     # outputs:
     #   some_output:
