@@ -52,13 +52,13 @@ jobs:
           bitbake obmc-phosphor-image
 
         shell: bash
-  # flash-fw:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     # required for accessing files in repository.
-  #   - name: flash
-  #       run: echo "flash"
+      - name: flash-fw
+       run: |
+          pwd
+          cd $GITHUB_WORKSPACE/automation
+          ls
+          go run $GITHUB_WORKSPACE/automation/fwflash.go
+        shell: bash 
 
    
 
