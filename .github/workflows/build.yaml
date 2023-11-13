@@ -46,7 +46,7 @@ jobs:
           cd openbmc 
 
         shell: bash
-      - name: Building for ${{inputs.Target_your_hardware}}
+      - name: Building for #${{inputs.Target_your_hardware}}
         run: |
           . setup zaius
           bitbake obmc-phosphor-image
