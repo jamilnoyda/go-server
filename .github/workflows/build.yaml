@@ -4,11 +4,13 @@ name: build and flash
 
 on:
   workflow_dispatch:
-    # inputs:
-    #   some_input:
-    #     description: some input
-    #     required: false
-    #     default: 1
+    inputs:
+      open_BMC_repo_url:
+        description: open_BMC_repo_url
+        required: yes
+        default: "git@github.com:openbmc/openbmc.git"
+        type: string
+
     # outputs:
     #   some_output:
     #     description: "The second job output"
@@ -26,14 +28,14 @@ jobs:
       - uses: actions/checkout@v3
       # required for accessing files in repository.
 
-      # https://github.com/marketplace/actions/build-number-generator
-      - name: Generate build number
-        uses: einaregilsson/build-number@v3
-        with:
-          token: ${{secrets.github_token}}
+      # # https://github.com/marketplace/actions/build-number-generator
+      # - name: Generate build number
+        # uses: einaregilsson/build-number@v3
+        # with:
+        #   token: ${{secrets.github_token}}
 
-      - name: Print new build number
-        run: echo "Build number is $BUILD_NUMBER"
+      # - name: Print new build number
+        # run: echo "Build number is $BUILD_NUMBER"
 
   # flash-fw:
   #   runs-on: ubuntu-latest
@@ -44,4 +46,81 @@ jobs:
   #       run: echo "flash"
 
    
-      
+
+# # Prerequisite
+# # Ubuntu 14.04
+# sudo apt-get install -y git build-essential libsdl1.2-dev texinfo gawk chrpath diffstat
+
+# #  Download the source
+
+# git clone git@github.com:openbmc/openbmc.git
+# cd openbmc
+
+# # Target your hardware
+# # . setup <machine> [build_dir]
+
+# # . ./setup rl300-g11
+# . setup rl300-g11 build
+
+# # build 
+# bitbake obmc-phosphor-image
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+# #set proxies and env variables
+
+# first step
+
+
+# echo export GOROOT=/usr/local/go >> ~/.profile
+# echo export GOPATH=\$HOME/go >> ~/.profile
+# echo export PATH=\$GOPATH/bin:\$GOROOT/bin:\$PATH >> ~/.profile
+# source ~/.profile
+
+
+
+#git has been installed, set proxy information. 
+# git config --global https.proxy http://web-proxy.houston.hpecorp.net:8080
+# git config --global http.proxy http://web-proxy.houston.hpecorp.net:8080
+#force git to use https
+# git config --global url."https://github".insteadOf git://github
+
+
+# 
+
+# Once you get logged in run that in a shell script
+# Then put your github key into your home .ssh directory
+# Then do chmod 600 yourgithubkey.pem
+# Then run git clone -b dev-gxp-gen11 git@github.hpe.com:hpe-iop/openbmc.git
+# That should copy down the source tree
+
+
+
+
+
+
+
+# /home/jamil/openbmc/meta-hpe/meta-gxp/recipes-bsp/image/files/
+# Once you have cloned the repo copy those two files into that path
+# cd /home/jamil/openbmc
+# . ./setup rl300-g11
+# bitbake obmc-phosphor-image
+# That will kick off a build
