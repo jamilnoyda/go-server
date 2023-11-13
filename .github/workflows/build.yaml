@@ -53,7 +53,7 @@ jobs:
 
         shell: bash
       - name: flash-fw
-       run: |
+        run: |
           pwd
           cd $GITHUB_WORKSPACE/automation
           ls
