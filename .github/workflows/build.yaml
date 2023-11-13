@@ -42,7 +42,7 @@ jobs:
       - name: clone the repo
         run: |
           whoami
-          run: git clone git@github.com:openbmc/openbmc.git
+          git clone git@github.com:openbmc/openbmc.git
           cd openbmc 
 
         shell: bash
