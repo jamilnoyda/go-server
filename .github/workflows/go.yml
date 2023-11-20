@@ -31,7 +31,7 @@ jobs:
     - name: testing secrets
       run: |
         echo ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        echo ${{ env.super_secret }}
+        echo ${{ env.PERSONAL_ACCESS_TOKEN }}
         # echo ${{ dev.super_secret }}
           
       shell: bash
