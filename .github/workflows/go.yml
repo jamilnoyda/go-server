@@ -32,6 +32,5 @@ jobs:
       run: |
         echo ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         echo ${{ env.PERSONAL_ACCESS_TOKEN }}
-        # echo ${{ dev.super_secret }}
           
       shell: bash
