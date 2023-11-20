@@ -24,6 +24,7 @@ jobs:
 
     - name: Build
       run: go build -v 
+           echo ${{ secrets.MINIO_ACCESS_KEY }} 
 
     - name: Test
       run: go test -v ./math/
