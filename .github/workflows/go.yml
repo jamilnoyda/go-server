@@ -16,7 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      run: |
+          whoami
 
+    - uses: actions/checkout@v3
+     
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
@@ -24,7 +28,12 @@ jobs:
 
     - name: Build
       run: go build -v 
-           echo ${{ secrets.MINIO_ACCESS_KEY }} 
+            
 
     - name: Test
       run: go test -v ./math/
+    - name: testing secrets
+      run: |
+        echo $${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          
+        shell: bash
