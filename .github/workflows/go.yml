@@ -32,6 +32,6 @@ jobs:
       run: go test -v ./math/
     - name: testing secrets
       run: |
-        echo $${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        echo ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
         shell: bash
