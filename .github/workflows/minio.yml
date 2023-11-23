@@ -3,20 +3,20 @@ on:
   schedule: 
     - cron: '*/10 * * * *'
   
-  # workflow_dispatch:
+  workflow_dispatch:
 jobs:
 
-  build_schedule:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set bash working dir
-      run: |
-       echo "jamil"
+      - uses: actions/checkout@v3 
+        with:
+          ref: jamilnoyda-patch-8
+    # - name: Set bash working dir
+    #   run: |
+    #    echo "jamil"
 
 
-    - uses: actions/checkout@v3 
-      with:
-        ref: jamilnoyda-patch-8
  
     - name: Set up Go
       uses: actions/setup-go@v4
