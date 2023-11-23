@@ -1,0 +1,17 @@
+name: env across all workflow
+
+on: [push, workflow_dispatch]
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      BMC_USERNAME_ROOT: ${{ env.BMC_PASS }}
+    steps:
+      - name: Run Commands with various variables
+        run: |
+          echo "Hello World"
+          echo "This is the $BMC_USERNAME_ROOT environment variable"
+ 
