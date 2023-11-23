@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3 
         with:
-          ref: jamilnoyda-patch-8
+          ref: testing-scheduler
     # - name: Set bash working dir
     #   run: |
     #    echo "jamil"
