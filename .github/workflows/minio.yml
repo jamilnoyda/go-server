@@ -14,7 +14,9 @@ jobs:
        echo "jamil"
 
 
-    - uses: actions/checkout@v3    
+    - uses: actions/checkout@v3 
+      with:
+        ref: jamilnoyda-patch-8
  
     - name: Set up Go
       uses: actions/setup-go@v4
