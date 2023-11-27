@@ -21,8 +21,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           pwd
-  
-          go run min_io_workflow/send_a_request.go 
+          echo "hello world"
+      #     go run min_io_workflow/send_a_request.go 
     
         shell: bash 
 
