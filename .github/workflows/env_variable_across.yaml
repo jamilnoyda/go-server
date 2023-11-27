@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     env:
-      BMC_USERNAME_ROOT: ${{ env.BMC_PASS }}
+      BMC_USERNAME_ROOT: ${{ vars.BMC_PASS }}
     steps:
       - name: Run Commands with various variables
         run: |
