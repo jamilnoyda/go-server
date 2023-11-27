@@ -5,13 +5,12 @@ on:
   
   workflow_dispatch:
 jobs:
-
-  send_a_request:
+  send:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3 
-        with:
-          ref: testing-scheduler
+        # with:
+        #   ref: testing-scheduler
 
 
  
