@@ -16,7 +16,8 @@ jobs:
     steps:
       - name: "checkout the code"
         uses: actions/checkout@v3
-        ref: 'ref-branch'
+        with:
+          ref: 'ref-branch'
  
       - name: Set up Go
         uses: actions/setup-go@v4
