@@ -23,14 +23,4 @@ jobs:
     
             go run min_io_workflow/send_a_request.go 
     
-        # - name: Test
-        #   run: go test -v ./math/
-
-        shell: bash 
-
- 
-
-
-    # - name: Set bash working dir
-    #   run: |
-    #    echo "jamil"
+          shell: bash 
