@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: "checkout the code"
         uses: actions/checkout@v3
+        ref: 'ref-branch'
  
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -27,7 +28,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           pwd
           echo "hello world"
-      #     go run min_io_workflow/send_a_request.go 
+          go run min_io_workflow/ref_branch_file.go 
     
         shell: bash 
 
