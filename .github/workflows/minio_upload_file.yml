@@ -5,22 +5,25 @@ on:
   
   workflow_dispatch:
 jobs:
+  
   test:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3 
-          # with:
-          #   ref: testing-scheduler
-        - name: Set up Go
-          uses: actions/setup-go@v4
-          with:
-            go-version: '1.20'
+    steps:
+      - name: "checkout the code"
+        uses: actions/checkout@v3
+ 
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
     
-        - name: min_io_workflow
-          run: |
-            cd $GITHUB_WORKSPACE
-            pwd
+      - name: min_io_workflow
+        run: |
+          cd $GITHUB_WORKSPACE
+          pwd
+  
+          go run min_io_workflow/send_a_request.go 
     
-            go run min_io_workflow/send_a_request.go 
-    
-          shell: bash 
+        shell: bash 
+
+ 
