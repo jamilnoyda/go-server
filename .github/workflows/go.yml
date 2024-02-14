@@ -1,8 +1,6 @@
 name: Go
 
 on:
-  # schedule: 
-  #   - cron: '* */6 * * 5'
   push:
   workflow_dispatch:
 jobs:
@@ -22,7 +20,7 @@ jobs:
       run: |
         NEW_IP_VALUE=10.14.77.203
         echo "::set-output name=NEW_IP::$NEW_IP_VALUE" 
-        # NEW_IP=
+
     
     
     - run: |
@@ -30,19 +28,15 @@ jobs:
     
     # - run: |
     #     echo "${{steps.download_step.outputs.matrix }}"
-    # - run: | not working
-    #     echo "${{fromJson(GITHUB_OUTPUT)[0] }}"
     
 
-    # - run: echo "PACKAGE_JSON=$(jq -c . < $steps.download_step.outputs.matrix)" >> $GITHUB_ENV
-    # - run: echo '${{ env.PACKAGE_JSON[0] }}'
       shell: bash    
     
   execute_multiple_test:
     strategy:
       matrix:
         include:
-        - BMC_IP: ${{needs.reading_from_json_file.outputs.output3}} 
+        - BMC_IP: ${{ needs.reading_from_json_file.outputs.output3 }} 
         # - BMC_IP: "10.14.77.203" 
         # ${{fromJson(needs.reading_from_json_file.outputs.output1)}} 
         
@@ -52,12 +46,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3    
-      
-        
+          
     - name: Execute Toggle IPMI
       run: | 
         echo ${{ matrix.BMC_IP }}
-        echo ${{needs.reading_from_json_file.outputs.output1}}
+        echo ${{ needs.reading_from_json_file.outputs.output1 }}
         # cd $GITHUB_WORKSPACE/automation
         # pwd
         # go run $GITHUB_WORKSPACE/automation/toggle_ipmi_service.go ${{ matrix.BMC_IP }}
