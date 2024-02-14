@@ -8,7 +8,7 @@ on:
 jobs:
       
   reading_from_json_file:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       output1: $ {{ steps.download_step.outputs.matrix }}
       output2: $ {{ steps.download_step.outputs.value }}
