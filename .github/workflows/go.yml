@@ -46,11 +46,11 @@ jobs:
         # NEW_IP=
     # - run: |
     #     echo ${{ fromJson(steps.download_step.outputs.matrix)[0] }}
-    - run: |
-        echo ${{ fromJson(steps.download_step.outputs.value)[0] }}
+    # - run: |
+    #     echo ${{ fromJson(steps.download_step.outputs.value)[0] }}
     
-    - run: |
-        echo ${{ fromJson(steps.download_step.outputs.value)[1] }}
+    # - run: |
+    #     echo ${{ fromJson(steps.download_step.outputs.value)[1] }}
     
     - run: |
         echo ${{ steps.download_step.outputs.NEW_IP }}
