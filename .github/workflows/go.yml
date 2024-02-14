@@ -2,35 +2,102 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
 name: Go
-
+name: Toggle IPMI
 on:
-  workflow_dispatch:
+  schedule: 
+    - cron: '* */6 * * 5'
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-env: 
+  workflow_dispatch:
 jobs:
-
-  build:
-    runs-on: ubuntu-latest
+      
+  reading_from_json_file:
+    runs-on: self-hosted
+    outputs:
+      output1: $ {{ steps.download_step.outputs.matrix }}
+      output2: $ {{ steps.download_step.outputs.value }}
+      output3: $ {{ steps.download_step.outputs.NEW_IP }}
+      
     steps:
     - uses: actions/checkout@v3
-     
-    # - name: Set up Go
-    #   uses: actions/setup-go@v4
-    #   with:
-    #     go-version: '1.20'
-
-    # - name: Build
-    #   run: go build -v 
-  
-
-    - name: Test
-      run: go test -v ./math/
-    - name: testing secrets
+      with:
+        ref: 'env-vari-poc-for-trigger-workflow'
+    
+    - uses: actions/setup-go@v3    
+      with:
+        go-version: '1.20'
+    - name: download file
+      id: download_step
       run: |
-        echo ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        echo ${{ env.PERSONAL_ACCESS_TOKEN }}
-          
-      shell: bash
+        cd $GITHUB_WORKSPACE/automation
+        # go run $GITHUB_WORKSPACE/automation/read_values_from_json.go 
+  
+        # cat env.json
+        # content=`cat env.json`
+        # the following lines are only required for multi line json
+        # content="${content//'%'/'%25'}"
+        # content="${content//$'\n'/'%0A'}"
+        # content="${content//$'\r'/'%0D'}"
+        # end of optional handling for multi line json
+        # echo "::set-output name=value::$content"
+        # echo "$content" >> $GITHUB_OUTPUT # not working Unable to process file command 'output' successfully.Error: Invalid format '['
+        # JSON=$(cat env.json)
+        # echo "{matrix}={JSON}" >> $GITHUB_OUTPUT
+        # NEW_IP_VALUE=echo ${steps.download_step.outputs.value}
+        # echo "{NEW_IP}={10.14.77.203}" >> $GITHUB_OUTPUT
+        NEW_IP_VALUE=10.14.77.203
+        echo "::set-output name=NEW_IP::$NEW_IP_VALUE
+        # NEW_IP=
+    # - run: |
+    #     echo ${{ fromJson(steps.download_step.outputs.matrix)[0] }}
+    - run: |
+        echo ${{ fromJson(steps.download_step.outputs.value)[0] }}
+    
+    - run: |
+        echo ${{ fromJson(steps.download_step.outputs.value)[1] }}
+    
+    - run: |
+        echo ${{ steps.download_step.outputs.NEW_IP }}
+    
+    # - run: |
+    #     echo "${{steps.download_step.outputs.matrix }}"
+    # - run: | not working
+    #     echo "${{fromJson(GITHUB_OUTPUT)[0] }}"
+    
+
+    # - run: echo "PACKAGE_JSON=$(jq -c . < $steps.download_step.outputs.matrix)" >> $GITHUB_ENV
+    # - run: echo '${{ env.PACKAGE_JSON[0] }}'
+      shell: bash    
+    
+  execute_multiple_test:
+    strategy:
+      matrix:
+        include:
+        - BMC_IP: ${{fromJson(needs.reading_from_json_file.outputs.output3)}} 
+        # - BMC_IP: "10.14.77.203" 
+        # ${{fromJson(needs.reading_from_json_file.outputs.output1)}} 
+        
+        
+    runs-on: self-hosted
+    needs: reading_from_json_file
+    
+    steps:
+    - uses: actions/checkout@v3    
+      with:
+        ref: 'env-vari-poc-for-trigger-workflow'
+    
+    
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '1.20'
+    
+        
+    - name: Execute Toggle IPMI
+      run: | 
+        echo ${{needs.reading_from_json_file.outputs.output1}}
+        echo "${{ matrix.BMC_IP }}"
+        cd $GITHUB_WORKSPACE/automation
+        pwd
+        go run $GITHUB_WORKSPACE/automation/toggle_ipmi_service.go ${{ matrix.BMC_IP }}
+  
+      shell: bash 
