@@ -18,7 +18,7 @@ jobs:
 
       id: download_step
       run: |
-        NEW_IP_VALUE=['10.14.77.203','10.14.77.202']
+        NEW_IP_VALUE='10.14.77.203'
         echo "::set-output name=NEW_IP::$NEW_IP_VALUE" 
 
     
@@ -35,9 +35,10 @@ jobs:
   execute_multiple_test:
     strategy:
       matrix:
-        # include:
-        BMC_IP: ${{ needs.reading_from_json_file.outputs.output3 }} 
-        # - BMC_IP: "10.14.77.203" 
+        include:
+        - BMC_IP: ${{ needs.reading_from_json_file.outputs.output3 }} 
+        - BMC_IP: ${{ needs.reading_from_json_file.outputs.output3 }} 
+        - BMC_IP: "10.14.77.205" 
         # ${{fromJson(needs.reading_from_json_file.outputs.output1)}} 
         
         
