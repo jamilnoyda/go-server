@@ -66,8 +66,8 @@ jobs:
       run: | 
         echo ${{needs.reading_from_json_file.outputs.output1}}
         echo "${{ matrix.BMC_IP }}"
-        cd $GITHUB_WORKSPACE/automation
-        pwd
-        go run $GITHUB_WORKSPACE/automation/toggle_ipmi_service.go ${{ matrix.BMC_IP }}
+        # cd $GITHUB_WORKSPACE/automation
+        # pwd
+        # go run $GITHUB_WORKSPACE/automation/toggle_ipmi_service.go ${{ matrix.BMC_IP }}
   
       shell: bash 
