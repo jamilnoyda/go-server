@@ -35,8 +35,8 @@ jobs:
   execute_multiple_test:
     strategy:
       matrix:
-        include:
-        - BMC_IP: ${{ needs.reading_from_json_file.outputs.output3 }} 
+        # include:
+        BMC_IP: ${{ needs.reading_from_json_file.outputs.output3 }} 
         # - BMC_IP: "10.14.77.203" 
         # ${{fromJson(needs.reading_from_json_file.outputs.output1)}} 
         
