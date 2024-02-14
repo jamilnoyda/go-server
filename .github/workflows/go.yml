@@ -47,7 +47,7 @@ jobs:
         # ${{fromJson(needs.reading_from_json_file.outputs.output1)}} 
         
         
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: reading_from_json_file
     
     steps:
