@@ -18,7 +18,7 @@ jobs:
 
       id: download_step
       run: |
-        NEW_IP_VALUE=["10.14.77.203","10.14.77.202"]
+        NEW_IP_VALUE=['10.14.77.203','10.14.77.202']
         echo "::set-output name=NEW_IP::$NEW_IP_VALUE" 
 
     
