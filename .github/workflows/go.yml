@@ -16,41 +16,14 @@ jobs:
       
     steps:
     - uses: actions/checkout@v3
-      with:
-        ref: 'env-vari-poc-for-trigger-workflow'
-    
-    - uses: actions/setup-go@v3    
-      with:
-        go-version: '1.20'
     - name: download file
+
       id: download_step
       run: |
-        cd $GITHUB_WORKSPACE/automation
-        # go run $GITHUB_WORKSPACE/automation/read_values_from_json.go 
-  
-        # cat env.json
-        # content=`cat env.json`
-        # the following lines are only required for multi line json
-        # content="${content//'%'/'%25'}"
-        # content="${content//$'\n'/'%0A'}"
-        # content="${content//$'\r'/'%0D'}"
-        # end of optional handling for multi line json
-        # echo "::set-output name=value::$content"
-        # echo "$content" >> $GITHUB_OUTPUT # not working Unable to process file command 'output' successfully.Error: Invalid format '['
-        # JSON=$(cat env.json)
-        # echo "{matrix}={JSON}" >> $GITHUB_OUTPUT
-        # NEW_IP_VALUE=echo ${steps.download_step.outputs.value}
-        # echo "{NEW_IP}={10.14.77.203}" >> $GITHUB_OUTPUT
         NEW_IP_VALUE=10.14.77.203
         echo "::set-output name=NEW_IP::$NEW_IP_VALUE
         # NEW_IP=
-    # - run: |
-    #     echo ${{ fromJson(steps.download_step.outputs.matrix)[0] }}
-    # - run: |
-    #     echo ${{ fromJson(steps.download_step.outputs.value)[0] }}
     
-    # - run: |
-    #     echo ${{ fromJson(steps.download_step.outputs.value)[1] }}
     
     - run: |
         echo ${{ steps.download_step.outputs.NEW_IP }}
