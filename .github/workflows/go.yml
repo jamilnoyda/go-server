@@ -6,6 +6,15 @@ on:
 jobs:
       
   reading_from_json_file:
+    strategy:
+      matrix:
+        include:
+          
+        - BMC_IP: ${{ steps.download_step.outputs.NEW_IP }} 
+        # - BMC_IP: ${{ needs.reading_from_json_file.outputs.output3 }} 
+        # - BMC_IP: "10.14.77.205" 
+        # ${{fromJson(needs.reading_from_json_file.outputs.output1)}} 
+
     runs-on: ubuntu-latest
     outputs:
       output1: $ {{ steps.download_step.outputs.matrix }}
